@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Engineer Portfolio</title>
+    <meta name="description"
+        content="Fullstack Software Engineer with expertise in React, Nuxt, and Phoenix. Building modern web applications.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        background: '#0a0a0f',
+                        surface: '#12121a',
+                        border: '#1e1e2e',
+                        foreground: '#e4e4e7',
+                        muted: '#71717a',
+                        accent: '#22d3ee',
+                        'accent-glow': '#06b6d4',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                        'rotate-y': 'rotateY 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 20px rgba(34, 211, 238, 0.3)' },
+                            '100%': { boxShadow: '0 0 40px rgba(34, 211, 238, 0.6)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0) rotateX(0)' },
+                            '50%': { transform: 'translateY(-20px) rotateX(5deg)' },
+                        },
+                        rotateY: {
+                            '0%': { transform: 'rotateY(-15deg) translateZ(-50px)', opacity: '0' },
+                            '100%': { transform: 'rotateY(0) translateZ(0)', opacity: '1' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #0a0a0f;
+            color: #e4e4e7;
+            perspective: 1000px;
+            overflow-x: hidden;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 50%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-border {
+            background: linear-gradient(135deg, #22d3ee, #a78bfa);
+            padding: 1px;
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px) rotateX(5deg) rotateY(-2deg);
+            box-shadow: 0 30px 60px rgba(34, 211, 238, 0.2);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #22d3ee;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .skill-tag {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .skill-tag:hover {
+            background: #22d3ee;
+            color: #0a0a0f;
+            transform: scale(1.1) translateZ(20px);
+        }
+
+        /* 3D Scroll Animation Classes */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(60px) rotateX(10deg);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0) rotateX(0);
+        }
+
+        .scroll-reveal-left {
+            opacity: 0;
+            transform: translateX(-100px) rotateY(15deg);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .scroll-reveal-left.revealed {
+            opacity: 1;
+            transform: translateX(0) rotateY(0);
+        }
+
+        .scroll-reveal-right {
+            opacity: 0;
+            transform: translateX(100px) rotateY(-15deg);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .scroll-reveal-right.revealed {
+            opacity: 1;
+            transform: translateX(0) rotateY(0);
+        }
+
+        .scroll-scale {
+            opacity: 0;
+            transform: scale(0.8) translateZ(-100px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .scroll-scale.revealed {
+            opacity: 1;
+            transform: scale(1) translateZ(0);
+        }
+
+        .scroll-rotate {
+            opacity: 0;
+            transform: rotateY(-30deg) translateZ(-50px);
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .scroll-rotate.revealed {
+            opacity: 1;
+            transform: rotateY(0) translateZ(0);
+        }
+
+        .parallax-bg {
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        .stagger-1 {
+            transition-delay: 0.1s;
+        }
+
+        .stagger-2 {
+            transition-delay: 0.2s;
+        }
+
+        .stagger-3 {
+            transition-delay: 0.3s;
+        }
+
+        .stagger-4 {
+            transition-delay: 0.4s;
+        }
+
+        .floating {
+            animation: floatAnimation 6s ease-in-out infinite;
+        }
+
+        @keyframes floatAnimation {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+
+            75% {
+                transform: translateY(-5px) rotate(-1deg);
+            }
+        }
+
+        .perspective-container {
+            perspective: 1500px;
+            transform-style: preserve-3d;
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="text-xl font-bold text-accent font-mono">&lt;dev/&gt;</a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#about" class="nav-link text-muted hover:text-foreground transition-colors">About</a>
+                <a href="#skills" class="nav-link text-muted hover:text-foreground transition-colors">Skills</a>
+                <a href="#projects" class="nav-link text-muted hover:text-foreground transition-colors">Projects</a>
+                <a href="#contact" class="nav-link text-muted hover:text-foreground transition-colors">Contact</a>
+            </div>
+            <a href="#contact"
+                class="px-4 py-2 bg-accent text-background font-medium rounded-lg hover:bg-accent-glow transition-colors">
+                Let's Talk
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20 px-6 relative overflow-hidden">
+        <!-- Background decoration -->
+        <div class="parallax-bg absolute top-1/4 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl floating"
+            data-speed="0.05"></div>
+        <div class="parallax-bg absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl floating"
+            data-speed="0.08" style="animation-delay: -2s;"></div>
+        <div class="parallax-bg absolute top-1/2 right-1/3 w-64 h-64 bg-pink-500/5 rounded-full blur-3xl floating"
+            data-speed="0.03" style="animation-delay: -4s;"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10 perspective-container">
+            <p class="text-accent font-mono text-sm md:text-base mb-4 tracking-wider scroll-reveal stagger-1">HELLO, I'M
+            </p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+                <span class="gradient-text scroll-reveal stagger-2">JOHN</span>
+                <br />
+                <span class="text-foreground scroll-reveal stagger-3">KIMOTHO</span>
+            </h1>
+            <p class="text-lg md:text-xl text-muted max-w-2xl mx-auto mb-10 leading-relaxed scroll-reveal stagger-4">
+                Fullstack developer with professional
+                experience building modern web applications.
+                Passionate about clean code and exceptional user experiences.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 scroll-scale">
+                <a href="#projects"
+                    class="px-8 py-4 bg-accent text-background font-semibold rounded-xl hover:bg-accent-glow transition-all animate-glow">
+                    View My Work
+                </a>
+                <a href="#about"
+                    class="px-8 py-4 border border-border text-foreground font-semibold rounded-xl hover:border-accent hover:text-accent transition-all">
+                    Learn More
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div
+            class="absolute bottom-10 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 text-muted scroll-reveal">
+            <span class="text-xs tracking-wider">SCROLL</span>
+            <div class="w-px h-10 bg-gradient-to-b from-accent to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="scroll-reveal-left">
+                    <p class="text-accent font-mono text-sm mb-4 tracking-wider">ABOUT ME</p>
+                    <h2 class="text-4xl md:text-5xl font-bold text-foreground mb-6">
+                        Crafting Digital<br />
+                        <span class="gradient-text">Experiences</span>
+                    </h2>
+                    <div class="space-y-4 text-muted leading-relaxed">
+                        <p>
+                            I'm a fullstack software engineer with a deep passion for building web applications that
+                            make a difference.
+                            With one year of professional experience at a software engineering company, I've developed a
+                            strong foundation
+                            in modern web technologies and best practices.
+                        </p>
+                        <p>
+                            My journey in software development has equipped me with expertise across the entire stack,
+                            from crafting
+                            intuitive user interfaces to designing robust backend systems. I thrive on solving complex
+                            problems and
+                            turning ideas into reality.
+                        </p>
+                    </div>
+                    <div class="mt-8 flex items-center gap-8">
+                        <div class="scroll-scale stagger-1">
+                            <p class="text-3xl font-bold text-accent">1+</p>
+                            <p class="text-muted text-sm">Years Experience</p>
+                        </div>
+                        <div class="w-px h-12 bg-border"></div>
+                        <div class="scroll-scale stagger-2">
+                            <p class="text-3xl font-bold text-accent">10+</p>
+                            <p class="text-muted text-sm">Projects Built</p>
+                        </div>
+                        <div class="w-px h-12 bg-border"></div>
+                        <div class="scroll-scale stagger-3">
+                            <p class="text-3xl font-bold text-accent">3</p>
+                            <p class="text-muted text-sm">Frameworks</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative scroll-rotate perspective-container">
+                    <div class="gradient-border rounded-2xl">
+                        <div class="bg-surface rounded-2xl p-8">
+                            <div class="font-mono text-sm">
+                                <p class="text-muted mb-2">// developer.json</p>
+                                <pre class="text-foreground leading-loose"><code>{
+  <span class="text-accent">"name"</span>: <span class="text-green-400">"John Kimotho"</span>,
+  <span class="text-accent">"role"</span>: <span class="text-green-400">"Fullstack Developer"</span>,
+  <span class="text-accent">"location"</span>: <span class="text-green-400">"Remote"</span>,
+  <span class="text-accent">"skills"</span>: [
+    <span class="text-green-400">"React"</span>,
+    <span class="text-green-400">"Nuxt"</span>,
+    <span class="text-green-400">"Phoenix"</span>
+    <span class="text-green-400">"e.t.c"</span>
+  ],
+  <span class="text-accent">"passionate"</span>: <span class="text-purple-400">true</span>,
+  <span class="text-accent">"hireable"</span>: <span class="text-purple-400">true</span>
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Decorative elements -->
+                    <div class="absolute -top-4 -right-4 w-20 h-20 border border-accent/30 rounded-xl floating"></div>
+                    <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-accent/20 rounded-lg blur-sm floating"
+                        style="animation-delay: -3s;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-32 px-6 bg-surface/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 scroll-reveal">
+                <p class="text-accent font-mono text-sm mb-4 tracking-wider">MY EXPERTISE</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-foreground">
+                    Technical <span class="gradient-text">Skills</span>
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 perspective-container">
+                <!-- Frontend -->
+                <div class="bg-surface border border-border rounded-2xl p-8 card-hover scroll-scale stagger-1">
+                    <div class="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-foreground mb-4">Frontend</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">React</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">Nuxt</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">Vue</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">TypeScript</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">Tailwind
+                            CSS</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">Next.js</span>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="bg-surface border border-border rounded-2xl p-8 card-hover scroll-scale stagger-2">
+                    <div class="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-foreground mb-4">Backend</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">Phoenix</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">Elixir</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">Node.js</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">PostgreSQL</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">REST
+                            APIs</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">GraphQL</span>
+                    </div>
+                </div>
+
+                <!-- Tools -->
+                <div class="bg-surface border border-border rounded-2xl p-8 card-hover scroll-scale stagger-3">
+                    <div class="w-14 h-14 bg-pink-500/10 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-foreground mb-4">Tools & Others</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">Git</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">Bitbucket</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">Figma</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">Docker</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">Linux</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">CI/CD</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">Agile</span>
+                        <span
+                            class="skill-tag px-3 py-1.5 bg-border text-muted rounded-lg text-sm font-medium cursor-pointer">Testing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 scroll-reveal">
+                <p class="text-accent font-mono text-sm mb-4 tracking-wider">MY WORK</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-foreground">
+                    Featured <span class="gradient-text">Projects</span>
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 perspective-container">
+
+                <!-- Project 1: Hotel Management App -->
+                <div
+                    class="group bg-surface border border-border rounded-2xl overflow-hidden card-hover scroll-reveal-left">
+                    <div
+                        class="h-48 bg-gradient-to-br from-accent/20 to-purple-500/20 flex items-center justify-center">
+                        <span class="text-6xl">🏨</span>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="px-2 py-1 bg-green-500/10 text-green-400 text-xs font-mono rounded">MERN
+                                Stack</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors">
+                            Hotel Management System</h3>
+                        <p class="text-muted text-sm leading-relaxed mb-4">
+                            Frontend for hotel booking and room management. Includes responsive UI, room listings, and
+                            reservation flows.
+                        </p>
+                        <a href="https://mern-hotel-reservation-frontend.onrender.com"
+                            class="inline-flex items-center gap-2 text-accent font-medium text-sm hover:gap-3 transition-all">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2: Beauty Parlour Management System -->
+                <div
+                    class="group bg-surface border border-border rounded-2xl overflow-hidden card-hover scroll-reveal-right">
+                    <div
+                        class="h-48 bg-gradient-to-br from-pink-500/20 to-rose-500/20 flex items-center justify-center">
+                        <span class="text-6xl">💅</span>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="px-2 py-1 bg-accent/10 text-accent text-xs font-mono rounded">JavaScript</span>
+                            <span
+                                class="px-2 py-1 bg-purple-500/10 text-purple-400 text-xs font-mono rounded">Frontend</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors">
+                            Beauty Parlour Management System
+                        </h3>
+                        <p class="text-muted text-sm leading-relaxed mb-4">
+                            A management interface for beauty parlours featuring service listings and back office staff
+                            management.
+                        </p>
+                        <a href="https://beautybeyond-ce42.onrender.com"
+                            class="inline-flex items-center gap-2 text-accent font-medium text-sm hover:gap-3 transition-all">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3: Analytics/React App -->
+                <div
+                    class="group bg-surface border border-border rounded-2xl overflow-hidden card-hover scroll-reveal-right">
+                    <div
+                        class="h-48 bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
+                        <span class="text-6xl">⚛️</span>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span
+                                class="px-2 py-1 bg-yellow-500/10 text-yellow-400 text-xs font-mono rounded">React</span>
+                            <span
+                                class="px-2 py-1 bg-red-500/10 text-red-400 text-xs font-mono rounded">JavaScript</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors">
+                            React Analytics Starter</h3>
+                        <p class="text-muted text-sm leading-relaxed mb-4">
+                            A starter UI template built in React, ideal for data display and dashboard components.
+                            (Built for a client)
+                        </p>
+                        <a href="https://ubuntu-analytics.onrender.com/"
+                            class="inline-flex items-center gap-2 text-accent font-medium text-sm hover:gap-3 transition-all">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 4: Phoenix App -->
+                <div
+                    class="group bg-surface border border-border rounded-2xl overflow-hidden card-hover scroll-reveal-left">
+                    <div class="h-48 bg-gradient-to-br from-green-500/20 to-accent/20 flex items-center justify-center">
+                        <span class="text-6xl">🔥</span>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span
+                                class="px-2 py-1 bg-purple-500/10 text-purple-400 text-xs font-mono rounded">Elixir</span>
+                            <span
+                                class="px-2 py-1 bg-blue-500/10 text-blue-400 text-xs font-mono rounded">Phoenix</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors">
+                            Phoenix Starter App</h3>
+                        <p class="text-muted text-sm leading-relaxed mb-4">
+                            A basic Phoenix framework app to explore Elixir capabilities and web performance.
+                        </p>
+                        <a href="https://github.com/Makaveli338/My-Pheonix-app"
+                            class="inline-flex items-center gap-2 text-accent font-medium text-sm hover:gap-3 transition-all">
+                            View Project
+                        </a>
+                    </div>
+                </div>               
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 px-6 bg-surface/50">
+        <div class="max-w-4xl mx-auto text-center scroll-reveal">
+            <p class="text-accent font-mono text-sm mb-4 tracking-wider">GET IN TOUCH</p>
+            <h2 class="text-4xl md:text-5xl font-bold text-foreground mb-6">
+                Let's Build Something<br />
+                <span class="gradient-text">Amazing Together</span>
+            </h2>
+            <p class="text-muted text-lg mb-10 max-w-2xl mx-auto">
+                I'm currently open to new opportunities and exciting projects. Whether you have a question or just want
+                to say hi,
+                I'll do my best to get back to you!
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 scroll-scale">
+                <a href="mailto:johnkimotho75@example.com"
+                    class="px-8 py-4 bg-accent text-background font-semibold rounded-xl hover:bg-accent-glow transition-all flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                    Send an Email
+                </a>
+                <a href="https://github.com/Makaveli338"
+                    class="px-8 py-4 border border-border text-foreground font-semibold rounded-xl hover:border-accent hover:text-accent transition-all flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                    GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/john-kimotho-961386379/"
+                    class="px-8 py-4 border border-border text-foreground font-semibold rounded-xl hover:border-accent hover:text-accent transition-all flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                    LinkedIn
+                </a>
+            </div>
+
+            <div class="flex items-center justify-center gap-8 text-muted">
+                <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span class="text-sm">Available for work</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 border-t border-border">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-muted text-sm">
+                © 2026 john_kimotho. All rights reserved.
+            </p>
+            <p class="text-muted text-sm">
+                Built with <span class="text-accent">❤</span> using HTML & Tailwind CSS
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // IntersectionObserver for 3D scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all scroll-animated elements
+        document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-scale, .scroll-rotate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax effect on scroll
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    document.querySelectorAll('.parallax-bg').forEach(el => {
+                        const speed = el.dataset.speed || 0.05;
+                        el.style.transform = `translateY(${scrolled * speed}px)`;
+                    });
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Trigger hero animations on load
+        window.addEventListener('load', () => {
+            document.querySelectorAll('section:first-of-type .scroll-reveal, section:first-of-type .scroll-scale').forEach(el => {
+                el.classList.add('revealed');
+            });
+        });
+    </script>
+</body>
+
+</html>
