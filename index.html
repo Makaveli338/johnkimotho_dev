@@ -227,7 +227,7 @@
             75% {
                 transform: translateY(-5px) rotate(-1deg);
             }
-        }
+        }       
 
         .perspective-container {
             perspective: 1500px;
@@ -298,7 +298,7 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-32 px-6">
+    <section id="about" class="py-10 sm:py-32 px-6">
         <div class="max-w-6xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <div class="scroll-reveal-left">
@@ -362,8 +362,8 @@
                         </div>
                     </div>
                     <!-- Decorative elements -->
-                    <div class="absolute -top-4 -right-4 w-20 h-20 border border-accent/30 rounded-xl floating"></div>
-                    <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-accent/20 rounded-lg blur-sm floating"
+                    <div class="absolute -top-4 -right-4 w-20 h-20 border border-accent/30 rounded-xl floating hidden sm:block"></div>
+                    <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-accent/20 rounded-lg blur-sm floating hidden sm:block"
                         style="animation-delay: -3s;"></div>
                 </div>
             </div>
@@ -371,7 +371,7 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-32 px-6 bg-surface/50">
+    <section id="skills" class="py-10 sm:py-32 px-6 bg-surface/50">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 scroll-reveal">
                 <p class="text-accent font-mono text-sm mb-4 tracking-wider">MY EXPERTISE</p>
@@ -471,7 +471,7 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-32 px-6">
+    <section id="projects" class="py-10 sm:py-32 px-6">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 scroll-reveal">
                 <p class="text-accent font-mono text-sm mb-4 tracking-wider">MY WORK</p>
@@ -591,7 +591,7 @@
 
 
     <!-- Contact Section -->
-    <section id="contact" class="py-32 px-6 bg-surface/50">
+    <section id="contact" class="py-10 sm:py-32 px-6 bg-surface/50">
         <div class="max-w-4xl mx-auto text-center scroll-reveal">
             <p class="text-accent font-mono text-sm mb-4 tracking-wider">GET IN TOUCH</p>
             <h2 class="text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -688,6 +688,11 @@
                 ticking = true;
             }
         });
+
+        if (window.innerWidth > 768) {
+  window.addEventListener('scroll', parallaxHandler);
+}
+
 
         // Trigger hero animations on load
         window.addEventListener('load', () => {
