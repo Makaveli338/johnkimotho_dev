@@ -212,6 +212,9 @@
         .floating {
             animation: floatAnimation 6s ease-in-out infinite;
         }
+        section{
+            overflow-x: hidden;
+        }
 
         @keyframes floatAnimation {
 
@@ -232,6 +235,7 @@
         .perspective-container {
             perspective: 1500px;
             transform-style: preserve-3d;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -239,7 +243,7 @@
 <body class="font-sans antialiased">
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="sm:max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <a href="#" class="text-xl font-bold text-accent font-mono">&lt;dev/&gt;</a>
             <div class="hidden md:flex items-center gap-8">
                 <a href="#about" class="nav-link text-muted hover:text-foreground transition-colors">About</a>
@@ -298,7 +302,7 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-10 sm:py-32 px-6 overflow-x-hidden w-full">
+    <section id="about" class="py-10 sm:py-32 px-6 overflow-hidden w-full">
         <div class="w-full sm:max-w-6xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <div class="scroll-reveal-left">
@@ -323,7 +327,7 @@
                             turning ideas into reality.
                         </p>
                     </div>
-                    <div class="mt-8 flex items-center gap-8">
+                    <div class="mt-8 flex items-center gap-8 flex-wrap">
                         <div class="scroll-scale stagger-1">
                             <p class="text-3xl font-bold text-accent">1+</p>
                             <p class="text-muted text-sm">Years Experience</p>
@@ -345,7 +349,7 @@
                         <div class="bg-surface rounded-2xl p-8">
                             <div class="font-mono text-sm">
                                 <p class="text-muted mb-2">// developer.json</p>
-                                <pre class="text-foreground leading-loose overflow-x-auto max-w-full text-xs sm:text-sm"><code>{
+                                <pre class="text-foreground leading-loose overflow-x-auto max-w-full text-xs sm:text-sm overflow-hidden"><code>{
   <span class="text-accent">"name"</span>: <span class="text-green-400">"John Kimotho"</span>,
   <span class="text-accent">"role"</span>: <span class="text-green-400">"Fullstack Developer"</span>,
   <span class="text-accent">"location"</span>: <span class="text-green-400">"Remote"</span>,
